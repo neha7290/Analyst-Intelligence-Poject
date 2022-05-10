@@ -1,0 +1,21 @@
+{
+"Login":{
+
+"Email": "neha5244@yopmail.com",
+"password": "owner123"
+},
+
+"Environment" :{
+"QA":"https://app.qa.alterflo.com/login",
+"Stage":""
+},
+
+"RBMform" : {
+
+"Name":"HC rbm demo",
+"SelectScenerio":"20+10 HC fcst Example"
+
+}
+
+
+}
