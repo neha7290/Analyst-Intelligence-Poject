@@ -54,22 +54,38 @@ class Rbm_PAGE {
         this.Click = page.locator("p[title='Copy of 2 - FT-US']");
 
         this.Remove401k = page.locator("(//*[name()='path'])[32]");
+        this.ClickCopiedField = page.locator("p[title='Copy of 3 - FT-US']");
 
+        this.ClickCopiedFiled3 = page.locator("p[title='Copy of 2 - FT-US']");
+        this.Clickedit = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root MuiSvgIcon-fontSizeSmall'])[7]");
+        this.ClickEditList = page.locator("(//*[name()='path'])[9]");
+        this.list3 = page.locator("p[title='Copy of 3 - FT-US']");
 
+        this.ClickUSSLSBonusEditIcon = page.locator('text=BonusGLVariableTypePercentage (%) >> button');
+        this.clickSaveAsNew = page.locator('button:has-text("SAVE AS NEW")');
+        this.NamePlaceHolder = page.locator('input[name="name"]');
+
+        this.EditFT_USSLSPayroll = page.locator('text=Payroll TaxesGLPayroll TaxTypePercentage (%) >> button');
+        this.DeleteBonusPlaceholder = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root MuiChip-deleteIcon'])[2]");
+        this.CommisionDropdown = page.locator('li[role="option"]:has-text("Commisions")');
+
+        this.SelectCommision = page.locator('text=Commissions');
+        this.EditFT_USSLSBenefit = page.locator('text=BenefitsGLBenefitsTypePercentage (%) >> button');
+        this.DeleteIconPayrollFT_USSLS = page.locator('text=Payroll TaxesGLPayroll TaxTypePercentage (%)Percentage Of(Salary + Bonus) Data S >> button');
+        this.NewParollAded = page.locator('text=Copy of 2 - Payroll TaxesGLPayroll TaxTypePercentage (%) >> button');
+        this.RenameUpdate = page.locator('div[role="dialog"] button:has-text("UPDATE")');
+        this.NewBenefitAdded = page.locator("text=Copy of 2 - BenefitsGLBenefitsTypePercentage (%) >> button");
+        this.deleteBenefit = page.locator('text=BenefitsTypePercentage (%) >> button');
 
     }
-
-
     async clickRBMicon() {
 
         await this.RuleBasedModel_Icon.click();
         await this.Page.waitForURL('https://app.qa.alterflo.com/dashboard/rule-based-model');
     }
-
     async CreateRBM() {
         await this.CreateButton.click();
     }
-
     async SetRBMform() {
 
         await this.Name.fill(this.SetBBMformName);
@@ -91,7 +107,6 @@ class Rbm_PAGE {
         await this.updateOption.click();
 
     }
-
     async UpdateBonus() {
         await this.Bonus.first().click();
         await this.ClickGLid.click();
@@ -113,7 +128,10 @@ class Rbm_PAGE {
     async UpdateBenefit() {
         await this.Benefit.first().click();
         await this.ClickGLid.click();
+
         await this.SetGLidbenefit.click();
+        await this.PercentageOff.click();
+        await this.AddBonus.click();
         await this.ClickUpdateButton.click();
         await this.updateOption.click();
 
@@ -126,7 +144,6 @@ class Rbm_PAGE {
         await this.updateOption.click();
 
     }
-
     async UpdateHeadcount() {
         await this.Headcount.first().click();
         await this.ClickGLid.click();
@@ -135,8 +152,6 @@ class Rbm_PAGE {
         await this.updateOption.click();
 
     }
-
-
     async CreateFT_IN() {
         await this.List1.click();
         await this.CopyCalculationGroup.first().click();
@@ -147,10 +162,65 @@ class Rbm_PAGE {
         await this.Remove401k.click();
         await this.ThisGoup.click();
     }
+    async CreateUSSLS() {
+        await this.List1.click();
+        await this.CopyCalculationGroup.first().click();
+        await this.ClickCopiedFiled3.click();
+        await this.ClickEditList.click();
+        await this.RenamNewCalculationGroup.fill('FT-USSLS');
+        await this.ClickRenameUpdate.click();
+    }
+    async EditFT_USSLS_Bonus() {
+        await this.ClickUSSLSBonusEditIcon.first().click();
+        await this.NamePlaceHolder.click();
+        await this.NamePlaceHolder.fill('Commisions');
+        await this.ClickUpdateButton.click();
+        await this.clickSaveAsNew.click();
+    }
+    async DeleteBonus() {
+        await this.ClickUSSLSBonusEditIcon.nth(2).click();
+        await this.ThisGoup.click();
 
+    }
+    async EditFT_USSLS_Payroll() {
+        await this.EditFT_USSLSPayroll.first().click();
+        await this.DeleteBonusPlaceholder.click();
+        await this.PercentageOff.click();
+        await this.CommisionDropdown.click();
+        await this.ClickUpdateButton.click();
+        await this.clickSaveAsNew.click();
+        //DELTE PAYROLL
+        await this.DeleteIconPayrollFT_USSLS.nth(2).click();
+        await this.ThisGoup.click();
 
-    
+    }
+    async EditFT_USSLS_Benefits() {
 
+        await this.EditFT_USSLSBenefit.first().click();
+        await this.DeleteBonusPlaceholder.click();
+        await this.PercentageOff.click();
+        await this.CommisionDropdown.click();
+        await this.ClickUpdateButton.click();
 
+        await this.clickSaveAsNew.click();
+    }
+    async RenameNewComponnet() {
+        await this.NewParollAded.first().click();
+        await this.NamePlaceHolder.click();
+        await this.NamePlaceHolder.fill('Payroll taxes -Sales');
+        await this.ClickUpdateButton.click();
+        await this.RenameUpdate.click();
+        //RenameBenefit
+        await this.NewBenefitAdded.first().click();
+        await this.NamePlaceHolder.click();
+        await this.NamePlaceHolder.fill('Benefits - Sales');
+        await this.ClickUpdateButton.click();
+        await this.RenameUpdate.click()
+
+    }
+    async DeleteBenefit() {
+        await this.deleteBenefit.nth(2).click();
+        await this.ThisGoup.click();
+    }
 }
 module.exports = { Rbm_PAGE };
