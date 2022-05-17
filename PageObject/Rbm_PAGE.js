@@ -1,4 +1,6 @@
 const { expect } = require("@playwright/test");
+const { ensureNoExpected } = require("jest-matcher-utils");
+const { timeouts } = require("retry");
 
 class Rbm_PAGE {
 
@@ -14,8 +16,7 @@ class Rbm_PAGE {
         this.SetBBMformName = GenrateNewName;
         this.SpecifyFixedValue = page.locator('input[name="fixedValue"]');
         this.SetSpecifyFixedValue = page.locator('input[name="fixedValue"]');
-        this.
-            ClickGLid = page.locator('[placeholder="Not Selected"]');
+        this.ClickGLid = page.locator('[placeholder="Not Selected"]');
         this.SelectGLidPayroll = page.locator("text=Payroll Tax (600300)");
         this.ClickUpdateButton = page.locator('button:has-text("Update")');
         this.updateOption = page.locator("//span[normalize-space()='UPDATE']");
@@ -46,6 +47,7 @@ class Rbm_PAGE {
         this.List1 = page.locator('.MuiBox-root.jss174');
 
         this.CopyCalculationGroup = page.locator('svg:nth-child(2)');
+
         this.ClickCopiedCG = page.locator("(//*[name()='svg'][@title='Edit'])[2]");
 
         this.RenamNewCalculationGroup = page.locator('[placeholder="Calculation Group Name"]');
@@ -56,9 +58,13 @@ class Rbm_PAGE {
         this.Remove401k = page.locator("(//*[name()='path'])[32]");
         this.ClickCopiedField = page.locator("p[title='Copy of 3 - FT-US']");
 
+        this.ClickUsslsCopiedFiled = page.locator("p[title='Copy of 2 - FT-USSLS']");
+
         this.ClickCopiedFiled3 = page.locator("p[title='Copy of 2 - FT-US']");
         this.Clickedit = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root MuiSvgIcon-fontSizeSmall'])[7]");
         this.ClickEditList = page.locator("(//*[name()='path'])[9]");
+        this.ClickINSLSEdit = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root MuiSvgIcon-fontSizeSmall'])[10]")
+
         this.list3 = page.locator("p[title='Copy of 3 - FT-US']");
 
         this.ClickUSSLSBonusEditIcon = page.locator('text=BonusGLVariableTypePercentage (%) >> button');
@@ -76,9 +82,36 @@ class Rbm_PAGE {
         this.RenameUpdate = page.locator('div[role="dialog"] button:has-text("UPDATE")');
         this.NewBenefitAdded = page.locator("text=Copy of 2 - BenefitsGLBenefitsTypePercentage (%) >> button");
         this.deleteBenefit = page.locator('text=BenefitsTypePercentage (%) >> button');
+        this.SaveNext = page.locator("button[class='MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary'] span[class='MuiButton-label']");
+        //FT-insl
+
+        this.USLSCopyIcon = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root MuiSvgIcon-fontSizeSmall'])[8]");
+        this.List = page.locator('"FT-USSLS"');
+        this.NewCpiedTab = page.locator("p[title='Copy of 2 - FT-USSLS']");
+        //Filed Config
+        this.AddNewColumn = page.locator('button:has-text("New Column")');
+        this.SetLocationColumn = page.locator('.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-fullWidth.Mui-focused .MuiInputBase-input');
+        this.ClickExpandicon = page.locator('text=LOCATION Name *Name *Map To Linked LookupData TypeData Type >> input[name="subsidiaryName"]');
+        this.Blank = page.locator('div[role="button"]:has-text("LOCATION")');
+        this.Icon = page.locator('div[role="button"]:has-text("LOCATION")');
+        this.TypeExpandIcon = page.locator('div[role="button"]:has-text("Type")');
+        //depatmene config
+        this.MapCheckbox = page.locator('(//*[@type="checkbox"])[8]');
+        this.ClickLinkedLookup = page.locator('[placeholder="Select Linked Lookup Table"]');
+        this.SelectLinkedLookup = page.locator('text=Departments (1)');
+        this.ClickFielFromLinkedLookup = page.locator('[placeholder="Select Field From Linked Lookup"]');
+        this.SelectFielFromLinkedLookup = page.locator('text=Department Name');
+        this.DepartmentExpandIcon = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root'])[16]");
+        this.RoleExpandIcon = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root'])[18]");
+        //save and next
+        this.FiledConfiguration_SaveandNext = page.locator("//span[normalize-space()='Save & Next']");
+        this.Popup = page.locator("//span[@id='client-snackbar']");
+        //calculation group after configuration
+        this.Delete401KINSLS = page.locator("(//*[name()='path'])[38]");
+        this.ClickSidePanelCalculationGroup = page.locator("div[class='MuiBox-root jss164'] a[class='menu-link ']");
 
     }
-    async clickRBMicon() {
+    async ClickRBMicon() {
 
         await this.RuleBasedModel_Icon.click();
         await this.Page.waitForURL('https://app.qa.alterflo.com/dashboard/rule-based-model');
@@ -142,7 +175,6 @@ class Rbm_PAGE {
         await this.SetGLidMatch401K.click();
         await this.ClickUpdateButton.click();
         await this.updateOption.click();
-
     }
     async UpdateHeadcount() {
         await this.Headcount.first().click();
@@ -150,7 +182,6 @@ class Rbm_PAGE {
         await this.SetGLidHeadcount.click();
         await this.ClickUpdateButton.click();
         await this.updateOption.click();
-
     }
     async CreateFT_IN() {
         await this.List1.click();
@@ -192,19 +223,17 @@ class Rbm_PAGE {
         //DELTE PAYROLL
         await this.DeleteIconPayrollFT_USSLS.nth(2).click();
         await this.ThisGoup.click();
-
     }
     async EditFT_USSLS_Benefits() {
-
         await this.EditFT_USSLSBenefit.first().click();
         await this.DeleteBonusPlaceholder.click();
         await this.PercentageOff.click();
         await this.CommisionDropdown.click();
         await this.ClickUpdateButton.click();
-
         await this.clickSaveAsNew.click();
     }
     async RenameNewComponnet() {
+        //rename payroll
         await this.NewParollAded.first().click();
         await this.NamePlaceHolder.click();
         await this.NamePlaceHolder.fill('Payroll taxes -Sales');
@@ -216,11 +245,66 @@ class Rbm_PAGE {
         await this.NamePlaceHolder.fill('Benefits - Sales');
         await this.ClickUpdateButton.click();
         await this.RenameUpdate.click()
-
     }
     async DeleteBenefit() {
         await this.deleteBenefit.nth(2).click();
         await this.ThisGoup.click();
     }
+    async Create_FT_INSLS() {
+        await this.List.click();
+        await this.USLSCopyIcon.waitFor();
+        await this.USLSCopyIcon.click();
+        await this.NewCpiedTab.click();
+        await this.ClickINSLSEdit.click();
+        await this.RenamNewCalculationGroup.fill('FT-INSLS');
+        await this.ClickRenameUpdate.click();
+        await this.Delete401KINSLS.click();
+        await this.ThisGoup.click();
+    }
+    async SAVEandNEXT() {
+        await this.SaveNext.click();
+    }
+    // Field Configuration
+    async FieldConfiguraion() {
+        await this.AddNewColumn.click();
+        await this.SetLocationColumn.fill('LOCATION');
+        await this.Blank.click();
+        await this.Icon.click();
+    }
+    async FieldConfiguraionTpe() {
+        await this.AddNewColumn.click();
+        await this.SetLocationColumn.fill('Type');
+        await this.TypeExpandIcon.click();
+        await this.TypeExpandIcon.click();
+    }
+    async FieldConfiguraionDepartmenet() {
+        await this.AddNewColumn.click();
+        await this.SetLocationColumn.fill('Departmenet');
+        await this.MapCheckbox.click();
+
+
+        await this.ClickLinkedLookup.click();
+        await this.SelectLinkedLookup.click();
+        await this.ClickFielFromLinkedLookup.click();
+        await this.SelectFielFromLinkedLookup.click();
+        await this.DepartmentExpandIcon.click();
+        await this.DepartmentExpandIcon.click();
+
+    }
+
+    async FieldConfiguraionRole() {
+        await this.AddNewColumn.click();
+        await this.SetLocationColumn.fill('Role');
+        await this.RoleExpandIcon.waitFor();
+        await this.RoleExpandIcon.click();
+        await this.FiledConfiguration_SaveandNext.waitFor();
+        await this.FiledConfiguration_SaveandNext.click();
+    }
+    async CalculationGroup() {
+        await this.ClickSidePanelCalculationGroup.click();
+
+
+    }
+
 }
-module.exports = { Rbm_PAGE };
+module.exports = { Rbm_PAGE };             
