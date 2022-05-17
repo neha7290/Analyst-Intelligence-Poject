@@ -2,7 +2,8 @@ const { expect } = require("@playwright/test");
 
 class Loginpage {
 
-    constructor(page) {
+    constructor(page)
+     {
         this.page = page;
         this.userName = page.locator("#username");
         this.Password = page.locator("#password");
@@ -18,6 +19,8 @@ class Loginpage {
         await this.Password.fill(password);
         await this.signBtn.click();
         await this.page.waitForNavigation("https://app.qa.alterflo.com/dashboard");
-    }
+
+
+     }
 }
 module.exports = { Loginpage };
