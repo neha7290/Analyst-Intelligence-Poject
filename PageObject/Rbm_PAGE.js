@@ -82,6 +82,12 @@ class Rbm_PAGE {
         this.RenameUpdate = page.locator('div[role="dialog"] button:has-text("UPDATE")');
         this.NewBenefitAdded = page.locator("text=Copy of 2 - BenefitsGLBenefitsTypePercentage (%) >> button");
         this.deleteBenefit = page.locator('text=BenefitsTypePercentage (%) >> button');
+        this.ConfigSaveNextbtn=page.locator('(//*[@class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"])[2]');
+      
+
+
+
+
         this.SaveNext = page.locator("button[class='MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary'] span[class='MuiButton-label']");
         //FT-insl
 
@@ -96,7 +102,7 @@ class Rbm_PAGE {
         this.Icon = page.locator('div[role="button"]:has-text("LOCATION")');
         this.TypeExpandIcon = page.locator('div[role="button"]:has-text("Type")');
         //depatmene config
-        this.MapCheckbox = page.locator('(//*[@type="checkbox"])[8]');
+        this.MapCheckbox = page.locator('(//*[@type="checkbox"])[10]');
         this.ClickLinkedLookup = page.locator('[placeholder="Select Linked Lookup Table"]');
         this.SelectLinkedLookup = page.locator('text=Departments (1)');
         this.ClickFielFromLinkedLookup = page.locator('[placeholder="Select Field From Linked Lookup"]');
@@ -106,9 +112,50 @@ class Rbm_PAGE {
         //save and next
         this.FiledConfiguration_SaveandNext = page.locator("//span[normalize-space()='Save & Next']");
         this.Popup = page.locator("//span[@id='client-snackbar']");
+
+
         //calculation group after configuration
         this.Delete401KINSLS = page.locator("(//*[name()='path'])[38]");
         this.ClickSidePanelCalculationGroup = page.locator("div[class='MuiBox-root jss164'] a[class='menu-link ']");
+
+        //LRP PAGE element
+
+        this.ClickFTUSDetails = page.locator("p[title='FT-US']");
+        this.ClickCopyFTUSIcon = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root MuiSvgIcon-fontSizeSmall'])[2]");
+
+        this.ClickCopiedNewRowTab = page.locator('(//*[@class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap"])[5]');
+        this.ClickEditIconUSNewRow = page.locator("(//*[name()='svg'][@class='MuiSvgIcon-root MuiSvgIcon-fontSizeSmall'])[13]");
+        this.ClickandsetRenameValue = page.locator("input[placeholder='Calculation Group Name']");
+
+        this.ClickEditHeadcount = page.locator('text=HeadcountGLBenefitsTypeCount >> button');
+        this.ClickEditInputTypes = page.locator("//input[@id='type']");
+        this.SelectInputType = page.locator('li[role="option"]:has-text("$ Input")');
+        this.ClickDistributersTermMonth = page.locator('input[name="termsInMonths"]');
+
+        this.ClickFNINDetails = page.locator("p[title='FT-IN']");
+        this.ClickCopyFTINIcon = page.locator('(//*[@class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"])[5]');
+        this.ClickCopiedINNewRowTab = page.locator("p[title='Copy of 3 - FT-IN']");
+        this.ClickEditIconINNewRow = page.locator('(//*[@class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"])[16]');
+        //
+        this.SelectCalculationGroupBottom = page.locator('button:has-text("Select/Create Calculations")');
+
+        this.ClickLRPHeadcountCheckbox = page.locator('text=Headcount-LRPType$ InputData SourceLoad as Column from Data SetTerm1 MonthsSched >> input[name="Salary"]');
+        this.ClickHeadcount = page.locator('text=HeadcountTypeCountQuantity1GLBenefitsStart ForecastStart MonthEnd ForecastEnd Mo >> input[name="Salary"]');
+        this.ClickThisGroup = page.locator('button:has-text("Add to Group")');
+        //
+        this.ClickFT_USSLSDetails = page.locator('(//*[@class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap"])[3]');
+        this.ClickCopyFT_USSLSIcon = page.locator('(//*[@class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"])[8]');
+        this.ClickCopiedUSSLSNewRowTab = page.locator("(//*[@class='MuiTypography-root MuiTypography-body2 MuiTypography-noWrap'])[7]");
+        this.ClickEditIconUSSLSNewRow = page.locator('(//*[@class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"])[19]');
+        //
+
+    
+    this.ClickFT_INSLSDetails = page.locator('(//*[@class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap"])[4]');
+    this.ClickCopyFT_INSLSIcon = page.locator('(//*[@class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"])[11]');
+    this.ClickCopiedINSLSNewRowTab = page.locator('(//*[@class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap"])[8]');
+    this.ClickEditIconINSLSNewRow = page.locator("(//*[@class='MuiSvgIcon-root MuiSvgIcon-fontSizeSmall'])[22]");
+       
+    this.FieldText=page.locator("(//*[@class='MuiTypography-root MuiTypography-h2'])[2]");
 
     }
     async ClickRBMicon() {
@@ -119,9 +166,9 @@ class Rbm_PAGE {
     async CreateRBM() {
         await this.CreateButton.click();
     }
-    async SetRBMform() {
+    async SetRBMform(RBMfileName) {
 
-        await this.Name.fill(this.SetBBMformName);
+        await this.Name.fill(RBMfileName);
         await this.SelectScenerio.fill("20+C");
         await this.clickCreateButton.click();
         await this.Page.locator(".MuiTypography-root.MuiTypography-h2").waitFor();
@@ -263,7 +310,14 @@ class Rbm_PAGE {
     }
     async SAVEandNEXT() {
         await this.SaveNext.click();
+        
     }
+
+    async ConfigSaveNext() {
+        await  this.ConfigSaveNextbtn.click();
+    }
+
+
     // Field Configuration
     async FieldConfiguraion() {
         await this.AddNewColumn.click();
@@ -277,9 +331,9 @@ class Rbm_PAGE {
         await this.TypeExpandIcon.click();
         await this.TypeExpandIcon.click();
     }
-    async FieldConfiguraionDepartmenet() {
+    async FieldConfiguraionDepartment() {
         await this.AddNewColumn.click();
-        await this.SetLocationColumn.fill('Departmenet');
+        await this.SetLocationColumn.fill('Department');
         await this.MapCheckbox.click();
 
 
@@ -302,9 +356,67 @@ class Rbm_PAGE {
     }
     async CalculationGroup() {
         await this.ClickSidePanelCalculationGroup.click();
+    }
+    //LRP CALCULATION GROUP
 
+    async CreateLRP_US() {
+        await this.ClickFTUSDetails.click();
+        await this.ClickCopyFTUSIcon.click();
+        await this.ClickCopiedNewRowTab.click();
+        await this.ClickEditIconUSNewRow.click();
+        await this.ClickandsetRenameValue.fill("LRP-US");
+        await this.ClickUpdateButton.click();
 
     }
+    async UpdateLRPHeadcount() {
+        await this.ClickEditHeadcount.first().click();
+        await this.NamePlaceHolder.click();
+        await this.NamePlaceHolder.fill('Headcount-LRP');
+        await this.ClickEditInputTypes.click();
+        await this.SelectInputType.click();
+        await this.ClickDistributersTermMonth.click();
+        await this.ClickDistributersTermMonth.fill('1');
+        await this.ClickUpdateButton.click();
+        await this.clickSaveAsNew.click();
+    }
+    async CreateLRP_IN() {
+
+        await this.ClickFNINDetails.click();
+        await this.ClickCopyFTINIcon.click();
+        await this.ClickCopiedINNewRowTab.click();
+        await this.ClickEditIconINNewRow.click();
+        await this.ClickandsetRenameValue.fill("LRP-IN");
+        await this.ClickUpdateButton.click();
+    }
+
+    async AddLRPHeadcount() {
+        await this.SelectCalculationGroupBottom.click();
+        await this.ClickLRPHeadcountCheckbox.check();
+        await this.ClickHeadcount.uncheck();
+        await this.ClickThisGroup.click();
+    }
+
+    async AddLRP_USSLS() {
+        await this.ClickFT_USSLSDetails.click();
+        await this.ClickCopyFT_USSLSIcon.click();
+        await this.ClickCopiedUSSLSNewRowTab.click();
+        await this.ClickEditIconUSSLSNewRow.click();
+       await this.ClickandsetRenameValue.fill("LRP-USSLS");
+       await this.ClickUpdateButton.click();
+   }
+
+
+async AddLRP_INSLS() {
+    await this.ClickFT_INSLSDetails.click();
+    await this.ClickCopyFT_INSLSIcon.click();
+    await this.ClickCopiedINSLSNewRowTab.click();
+    await this.ClickEditIconINSLSNewRow.click();
+
+
+   await this.ClickandsetRenameValue.fill("LRP-INSLS");
+   await this.ClickUpdateButton.click();
+}
+
 
 }
 module.exports = { Rbm_PAGE };             
