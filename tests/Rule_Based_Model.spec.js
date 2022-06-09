@@ -11,12 +11,14 @@ test('Create RBM', async ({ page }) => {
   const loginPage = new Loginpage(page);
   const sourcetablepage = new SourceTablePage(page);
   const rbm_PAGE = new Rbm_PAGE(page);
+  const RBMFile = `HC_RBM_Training${Date.now()}`;
 
   await loginPage.GetURL(Datadriven.Environment.QA);
   await loginPage.ValidLogin(Datadriven.Login.Email, Datadriven.Login.password);
   await rbm_PAGE.ClickRBMicon();
   await rbm_PAGE.CreateRBM();
-  await rbm_PAGE.SetRBMform();
+  await rbm_PAGE.SetRBMform(RBMFile);
+  console.log(RBMFile);
   await rbm_PAGE.UpdatePayrollTax();
   await rbm_PAGE.UpdateBonus();
   await rbm_PAGE.UpdateSalary();
@@ -38,21 +40,36 @@ test('Create RBM', async ({ page }) => {
   // Filed Configuration
   await rbm_PAGE.FieldConfiguraion();
   await rbm_PAGE.FieldConfiguraionTpe();
-  await rbm_PAGE.FieldConfiguraionDepartmenet();
+  await rbm_PAGE.FieldConfiguraionDepartment();
   await rbm_PAGE.FieldConfiguraionRole();
   //Verify Configuration save popup
   await expect(rbm_PAGE.Popup).toHaveText('Rule Model configuration saved successfully.');
-
-  //aftre config calculation group
+  //LRP calculation group
 
   await rbm_PAGE.CalculationGroup();
- 
-  
+  await rbm_PAGE.CreateLRP_US();
+  await rbm_PAGE.UpdateLRPHeadcount();
+
+  await rbm_PAGE.CreateLRP_IN();
+
+  await rbm_PAGE.AddLRPHeadcount();
+  await rbm_PAGE.AddLRP_USSLS();
+  await rbm_PAGE.AddLRPHeadcount();
+
+  await rbm_PAGE.AddLRP_INSLS();
+  await rbm_PAGE.AddLRPHeadcount();
 
 
+  await rbm_PAGE.SAVEandNEXT();
+
+  await rbm_PAGE.ConfigSaveNext();
 
 
-})
+}
+
+)
+
+
 
 
 

@@ -15,7 +15,7 @@ const { devices } = require('@playwright/test');
 const config = {
   testDir: './tests',
   /* Maximum time one test can run for. */
-  timeout: 1000 * 1000,
+  timeout: 100000 * 1000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -45,12 +45,12 @@ const config = {
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-      },
-    },
+   // {
+   //   name: 'chromium',
+    //  use: {
+   //     ...devices['Desktop Chrome'],
+   //   },
+   // },
 
     // {
     //   name: 'firefox',
@@ -87,12 +87,12 @@ const config = {
     //     channel: 'msedge',
     //   },
     // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //   },
-    // },
+     {
+      name: 'Google Chrome',
+      use: {
+        channel: 'chrome',
+     },
+     },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
