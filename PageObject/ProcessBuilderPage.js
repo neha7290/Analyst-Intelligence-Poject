@@ -194,6 +194,7 @@ class ProcessBuilderPage {
         await this.runTimeTextVisible.click();
         await this.WaitForFininshButtonIsvisible.waitFor();
         await this.ClickOnFinishButton.click();
+        
     }
     //'Open Headcount'
     async PasteATCdata(OpenheadcountFile, PasteFileTo) {
@@ -205,7 +206,6 @@ class ProcessBuilderPage {
         await this.ClickOnPasteTo.click();
         await this.ClickOnPasteTo.fill(PasteFileTo);
         await this.ClickOnPasteTo.press('Enter');
-        //
         await this.SalaryPlaceholder.click();
         await this.SelectSalary.click();
         await this.CommisionPlaceholder.click();
