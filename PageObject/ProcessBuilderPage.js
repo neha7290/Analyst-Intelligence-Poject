@@ -252,6 +252,7 @@ class ProcessBuilderPage {
         await this.uncheckName.uncheck();
         await this.uncheckStartdate.uncheck();
         await this.clickSaveButton.click();
+       
         //second column to customize
         await this.clickonThenTable.click();
         await this.checkGroup.check();

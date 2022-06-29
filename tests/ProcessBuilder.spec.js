@@ -45,10 +45,9 @@ test('Process Builder', async ({ page }) => {
   await processbuilder.RemoveRow();
   await processbuilder.SetCalculation();
   await processbuilder.PasteATCdata(OpenHeadcount, PasteFileTo);
-
-  await processbuilder.PasteLRPData(LRPfile, PasteFileTo);
+    await processbuilder.PasteLRPData(LRPfile, PasteFileTo);
   await processbuilder.Findcalsgroup(PasteFileTo);
-   //trans find calc group.
+  //trans find calc group.
 
 
 
